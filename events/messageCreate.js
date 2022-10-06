@@ -1,23 +1,25 @@
-const Discord = require("discord.js"),
-    { MessageEmbed, MessageActionRow, MessageButton, Collection, Permissions } = require("discord.js"),
+const config = require("../config");
+
+const { MessageEmbed, Collection, Permissions } = require("discord.js"),
     db = require("quick.db"),
-    discord = require("discord.js"),
     Timeout = new Collection(),
     ms = require("ms");
 
 module.exports.run = async (client, message) => {
     if (message.author.bot || !message.guild) return;
+
     let prefix = client.config.prefix;
-
-
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(prefixMention)) {
         let mention = new MessageEmbed({
             description:
-                `Hey, ${client.user.username} here!\n\nPrefix for this server is \`${prefix}\`\n\nIf you have any problem regarding bot join : \n[discord.gg/marvel](${client.config.bserver})`,
-            color: client.embed.cm
-        })
-        let p1 = ["SEND_MESSAGES", "EMBED_LINKS"]
+                `Hey, ${client.user.username} here!\n\nPrefix for this server is \`${prefix}\`\n` +
+                `If you have any problem regarding bot join : \n[discord.gg/marvel](https://discord.gg/fqvQNDZYpj)\n` +
+                `This bot is made by [Damon 🖤#6667](https://discord.com/users/672027578181353473)`,
+            color: config.embedColour
+        });
+
+        let p1 = ["SEND_MESSAGES", "EMBED_LINKS"];
         if (!message.guild.me.permissionsIn(message.channel).has(p1)) {
             return message.author.send({
                 embeds: [
@@ -27,11 +29,11 @@ module.exports.run = async (client, message) => {
                         thumbnail: message.guild.iconURL({ dynamic: true })
                     })
                 ]
-            }).catch(() => null)
-        }
+            }).catch(() => null);
+        };
         return message.reply({ embeds: [mention] })
             .then(m => setTimeout(() => m.delete().catch(() => null), 10000));
-    }
+    };
 
     // For user with prefix  
     // normal users
@@ -60,8 +62,8 @@ module.exports.run = async (client, message) => {
                                 description: 'You need to add Maverl in your server first\n[Click Here](https://discord.com/oauth2/authorize?client_id=748583869527097376&permissions=8&redirect_uri=https://discord.gg/fqvQNDZYpj&response_type=code&scope=bot)'
                             })
                         ]
-                    })
-                }
+                    });
+                };
 
                 let p1 = ["SEND_MESSAGES", "EMBED_LINKS"]
                 if (!message.guild.me.permissionsIn(message.channel).has(p1)) {
@@ -73,8 +75,8 @@ module.exports.run = async (client, message) => {
                                 thumbnail: message.guild.iconURL({ dynamic: true })
                             })
                         ]
-                    }).catch(() => null)
-                }
+                    }).catch(() => null);
+                };
 
                 if (!command.er) {
                     var milliseconds = client.time;
@@ -83,8 +85,8 @@ module.exports.run = async (client, message) => {
                     var tit = Date.now();
                     if (futureDate - tit <= 0) {
                         return message.reply('Your subscription expired.\nhttps://discord.gg/djrPQaczPw')
-                    }
-                }
+                    };
+                };
 
                 let cooldown = 5000;
                 if (Timeout.has(`cooldown${message.author.id}`)) {
@@ -94,7 +96,7 @@ module.exports.run = async (client, message) => {
                             { long: true }
                         )}\` cooldown.`
                     ).then((m) => setTimeout(() => m.delete().catch(() => null), 3000));
-                }
+                };
                 let r = false;
                 if (!client.config.bowner.includes(message.member.id)) {
                     if (modOnly === true) {
@@ -102,8 +104,9 @@ module.exports.run = async (client, message) => {
                             return message.reply(
                                 `${client.emoji.fail}| Bot is mod only in this guild that means you need \`ADMINISTRATOR\``
                             ).then((m) => setTimeout(() => m.delete().catch(() => null), 3000));
-                        }
-                    }
+                        };
+                    };
+
                     command.userPermissions.forEach((permission) => {
                         if (r === true) return;
                         if (!message.member.permissionsIn(message.channel).has(permission)) {
@@ -113,7 +116,8 @@ module.exports.run = async (client, message) => {
                             ).then((m) => setTimeout(() => m.delete().catch(() => null), 3000));
                         }
                     });
-                }
+                };
+
                 command.botPermissions.forEach((permission) => {
                     if (r === true) return;
                     if (!message.guild.me.permissionsIn(message.channel).has(permission)) {
@@ -121,8 +125,9 @@ module.exports.run = async (client, message) => {
                         return message.reply(
                             `${client.emoji.fail}| I NEED **\`${permission}\`** PERMISSION FIRST TO EXECUTE THIS COMMAND!!`
                         ).then((m) => setTimeout(() => m.delete().catch(() => null), 3000));
-                    }
+                    };
                 });
+
                 if (r === false) {
                     try {
                         await command.run(client, message, args, arg) &&
@@ -133,10 +138,10 @@ module.exports.run = async (client, message) => {
                     } catch (e) {
                         return client.errweb.send(`\`\`\`js\nCOMMAND : ${command.name}\n${e.stack}\n\`\`\``);
                     }
-                }
-            }
+                };
+            };
         } catch (e) {
             return client.errweb.send(`\`\`\`js\nmessageCreate.js : \n${e.stack}\n\`\`\``);
-        }
-    }
-}
+        };
+    };
+};

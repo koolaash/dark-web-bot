@@ -15,4 +15,4 @@ module.exports.run = async (client) => {
     if (logChannel) console.log(logChannel.name);
     if (darkwebChannel) console.log(darkwebChannel.name);
     if (darkwebRole) console.log(darkwebRole.name);
-}
+};
