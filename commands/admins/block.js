@@ -8,6 +8,7 @@ module.exports = {
     description: "helps you see the last message which got deleted",
     category: "Account",
     usage: "acreate `tag_here`",
+    usage: "acreate `tag_here`",
     botPermissions: ["EMBED_LINKS"],
     userPermissions: [],
 

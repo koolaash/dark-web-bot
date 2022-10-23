@@ -54,17 +54,6 @@ module.exports.run = async (client, message) => {
             if (!command) command = client.commands.get(client.aliases.get(cmd));
             if (command) {
 
-                const marvel = client.user.fetch('748583869527097376').catch(() => null);
-                if (!marvel) {
-                    return message.reply({
-                        embeds: [
-                            new MessageEmbed({
-                                description: 'You need to add Maverl in your server first\n[Click Here](https://discord.com/oauth2/authorize?client_id=748583869527097376&permissions=8&redirect_uri=https://discord.gg/fqvQNDZYpj&response_type=code&scope=bot)'
-                            })
-                        ]
-                    });
-                };
-
                 let p1 = ["SEND_MESSAGES", "EMBED_LINKS"]
                 if (!message.guild.me.permissionsIn(message.channel).has(p1)) {
                     return message.author.send({
@@ -76,16 +65,6 @@ module.exports.run = async (client, message) => {
                             })
                         ]
                     }).catch(() => null);
-                };
-
-                if (!command.er) {
-                    var milliseconds = client.time;
-                    var millisecondsInDay = 8.64e7;
-                    var futureDate = new Date(milliseconds + 28 * millisecondsInDay);
-                    var tit = Date.now();
-                    if (futureDate - tit <= 0) {
-                        return message.reply('Your subscription expired.\nhttps://discord.gg/djrPQaczPw')
-                    };
                 };
 
                 let cooldown = 5000;
