@@ -5,14 +5,42 @@ module.exports.run = async (client) => {
     const logChannel = client.channels.cache.get(config.logChannel);
     const darkwebChannel = client.channels.cache.get(config.darkwebChannel);
     const darkwebRole = server.roles.cache.get(config.darkwebRole);
+    const syndicate = server.roles.cache.get(config.syndicate);
+    const accountlog = client.channels.cache.get(config.accountlog);
+    const wdlog = client.channels.cache.get(config.wdlog);
+    const admin = server.roles.cache.get(config.adminrole);
 
-    if (!server) console.log('SERVER NOT FOUND');
-    if (!logChannel) console.log('LOGS CHANNEL NOT FOUND');
-    if (!darkwebChannel) console.log('DARKWEB CHANNEL NOT FOUND');
-    if (!darkwebRole) console.log('DARKWEB ROLE NOT FOUND');
+    if (!server) console.log('SERVER NOT FOUND'.red);
+    if (!logChannel) console.log('LOGS CHANNEL NOT FOUND'.red);
+    if (!darkwebChannel) console.log('DARKWEB CHANNEL NOT FOUND'.red);
+    if (!darkwebRole) console.log('DARKWEB ROLE NOT FOUND'.red);
 
-    if (server) console.log(server.name);
-    if (logChannel) console.log(logChannel.name);
-    if (darkwebChannel) console.log(darkwebChannel.name);
-    if (darkwebRole) console.log(darkwebRole.name);
+    if (!syndicate) {
+        console.log("SYNDICATE NOT FOUND".red)
+    } else {
+        console.log(`${syndicate.name}`.green)
+    };
+
+    if (!accountlog) {
+        console.log("ACCOUNT LOG CHANNEL NOT FOUND".red)
+    } else {
+        console.log(`${accountlog.name}`.green)
+    };
+
+    if (!wdlog) {
+        console.log("WARN AND DELETE LOG NOT FOUND".red)
+    } else {
+        console.log(`${wdlog.name}`.green)
+    };
+
+    if (!admin) {
+        console.log("ADMIN ROLE NOT FOUND".red)
+    } else {
+        console.log(`${admin.name}`.green)
+    }
+
+    if (server) console.log(`${server.name}`.green);
+    if (logChannel) console.log(`${logChannel.name}`.green);
+    if (darkwebChannel) console.log(`${darkwebChannel.name}`.green);
+    if (darkwebRole) console.log(`${darkwebRole.name}`.green);
 };

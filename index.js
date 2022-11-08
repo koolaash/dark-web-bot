@@ -88,6 +88,12 @@ client.on("messageCreate", async (message) => { // main message data
             return message.author.send("You don't have access to server DARK WEB");
         };
 
+        // checking if the bot is in locked phase or not 
+        let locked = db.get('locked');
+
+        if (locked === true) {
+            return message.reply('Darkweb is currently locked for everyone by GODFATHER!')
+        };
 
         // function for the godfather message and normal user message to make a difference
         if (!serverUser.roles.cache.has(syndicate.id)) {
