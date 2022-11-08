@@ -65,7 +65,7 @@ module.exports = {
                 let warn2 = db.get(`warns${args[0]}`);
                 if (warn2 >= 3) {
                     db.set(`block${args[0]}`, true);
-                    bl = "\nReached your max warnings and have been blocked by the bot!"
+                    bl = "\nReached your max warnings and have been blocked by GODFATHER!";
                 } else {
                     db.add(`warns${args[0]}`, 1);
                 };
@@ -73,7 +73,7 @@ module.exports = {
                 // database update
                 let acc_user = db.get(`acc_user${args[0]}`);
                 let owner = await message.guild.members.fetch(acc_user);
-                let log = message.guild.channels.cache.get(client.config.wdlog);
+                let log = client.channels.cache.get(client.config.wdlog);
                 log.send({
                     embeds: [
                         new discord.MessageEmbed({
