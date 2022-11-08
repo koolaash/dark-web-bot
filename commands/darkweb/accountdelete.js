@@ -13,6 +13,10 @@ module.exports = {
 
     async run(client, message, args) {
         setTimeout(() => message.delete().catch(() => null), 5000);
+        if (!message.member.roles.cache.has(client.config.darkwebRole)) {
+            return message.author.send("You don't have access to server DARK WEB");
+        };
+
         if (!args[0]) {
             return message.reply("You forgot to mention youR tag!")
                 .then(m => setTimeout(() => m.delete().catch(() => null), 5000));
@@ -64,7 +68,7 @@ module.exports = {
                 db.delete(args[0]);
                 db.delete(`acc_user${args[0]}`);
 
-                let log = message.guild.channels.cache.get(client.config.accountlog);
+                let log = client.channels.cache.get(client.config.accountlog);
                 log.send({
                     embeds: [
                         new discord.MessageEmbed({

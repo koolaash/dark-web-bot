@@ -13,6 +13,11 @@ module.exports = {
 
     async run(client, message, args) {
         setTimeout(() => message.delete().catch(() => null), 5000);
+
+        if (!message.member.roles.cache.has(client.config.darkwebRole)) {
+            return message.author.send("You don't have access to server DARK WEB");
+        };
+
         if (!args[0]) {
             return message.reply("You forgot to mention you tag that you want for you dark web account")
                 .then(m => setTimeout(() => m.delete().catch(() => null), 5000));
@@ -65,7 +70,7 @@ module.exports = {
                 db.set(`acc_user${args[0]}`, message.author.id);
 
                 // sending logs and repllying the user that all the data is saved and his account is created
-                let log = message.guild.channels.cache.get(client.config.accountlog);
+                let log = client.channels.cache.get(client.config.accountlog);
                 log.send({
                     embeds: [
                         new discord.MessageEmbed({
@@ -90,5 +95,5 @@ module.exports = {
                     .then(m => setTimeout(() => m.delete().catch(() => null), 5000));
             };
         });
-    }
+    },
 };

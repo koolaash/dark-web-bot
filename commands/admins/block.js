@@ -15,10 +15,11 @@ module.exports = {
     async run(client, message, args) {
         if (!message.member.roles.cache.get(client.config.adminrole)) {
             return message.reply("This Command Is For Admins Only!")
-        }
+        };
+
         if (!args[0]) {
             return message.reply("You forgot to mention the tag")
-        }
+        };
 
         let tag_use = db.get(args[0]),
             tag_block = db.get(`block${args[0]}`);
@@ -58,7 +59,7 @@ module.exports = {
                 db.set(`block${args[0]}`, true);
                 let acc_user = db.get(`acc_user${args[0]}`);
                 let owner = await message.guild.members.fetch(acc_user);
-                let log = message.guild.channels.cache.get(client.config.accountlog);
+                let log = client.channels.cache.get(client.config.accountlog);
                 log.send({
                     embeds: [
                         new discord.MessageEmbed({

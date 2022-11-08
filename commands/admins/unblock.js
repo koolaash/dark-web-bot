@@ -57,7 +57,7 @@ module.exports = {
                 db.delete(`block${args[0]}`);
                 let acc_user = db.get(`acc_user${args[0]}`);
                 let owner = await message.guild.members.fetch(acc_user);
-                let log = message.guild.channels.cache.get(client.config.accountlog);
+                let log = client.channels.cache.get(client.config.accountlog);
                 log.send({
                     embeds: [
                         new discord.MessageEmbed({
